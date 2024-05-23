@@ -41,5 +41,5 @@ jobs:
         password: ${{ secrets.SMTP_PASSWORD }}
         subject: GitHub Actions Notification
         body: A new push to the main branch has been made.
-        to: recipient-email@example.com
+        to: mippolito@itba.edu.ar
         from: ${{ secrets.SMTP_USERNAME }}

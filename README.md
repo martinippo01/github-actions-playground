@@ -56,7 +56,7 @@ jobs:
 5. Commit and push the changes to origin (the github repository created)
 
 In order to check that the action created was successfuly created, open your repository on GitHub and select the _actions_ tab. You should be able to see the action running or completed.
-![actions demo completed](images/ok_demo_action.png)
+![actions demo completed](images/ok_demo_actions.png)
 
 
 ## Step 3: Define Your Workflow

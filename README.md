@@ -8,8 +8,9 @@ This guide will walk you through setting up a CI/CD pipeline using GitHub Action
 
 1. **Git and GitHub Account**: Ensure you have Git installed and a GitHub account.
 2. **Docker**: Install Docker to manage containers.
-3. **Kubernetes (Optional)**: For advanced deployments, have a Kubernetes cluster set up.
-4. **AWS Account (Optional)**: For deploying using AWS services like EKS, ECS, or Lambda.
+3. **AWS Account (Optional)**: For deploying using AWS services like EKS, ECS, or Lambda.
+
+Side note: This guide and demo will deploy to AWS, but this is not required for using CI/CD with github actions.
 
 ## Step 1: Create a GitHub Repository
 
@@ -17,12 +18,46 @@ This guide will walk you through setting up a CI/CD pipeline using GitHub Action
 2. Click on the **+** icon and select **New repository**.
 3. Name your repository, provide a description, and click **Create repository**.
 
+For new github users, check out the [GitHub documentation on repositories](https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories)
+
 ## Step 2: Set Up GitHub Actions
 
-1. Navigate to your repository.
-2. Click on the **Actions** tab.
-3. Select **set up a workflow yourself** or choose a pre-configured workflow that suits your needs.
-4. Create a new file named `.github/workflows/ci-cd.yml`.
+1. Clone your repository localy ([GitHub documentation on cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository))
+2. Step into the root of the repository. To make sure you are in the root, run `ls -a` and you should see a directory named `.git`
+3. Create a file `ci-cd.yml`, inside the directory `./.githubactions/workflows` (Create both directories if necessary)
+
+Inside the file created, copy the following code:
+```yaml
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+```
+4. Remeber to save all changes
+5. Commit and push the changes to origin (the github repository created)
+
+In order to check that the action created was successfuly created, open your repository on GitHub and select the _actions_ tab. You should be able to see the action running or completed.
+![actions demo completed](images/ok_demo_action.png)
+
 
 ## Step 3: Define Your Workflow
 
